@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Html编码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content_hd">
+    <h2 id="firstHeading" class="">Html编码</h2>
+</div>
+<!-- bodyContent -->
+<div id="bodyContent" class="bodyContent">
+    <!-- bodytext -->
+    <table style="width:100%">
+        <tbody>
+            <tr>
+                <td style="width:43%">
+                    <textarea spellcheck="false" id="txtSource" class="form-control " rows="18" cols="30"></textarea>
+                </td>
+                <td align="center">
+                    <p>
+                        <button id="btnEncrypt" class="btn btn-primary">编码&gt;</button>
+                    </p>
+                    <p>&nbsp;</p>
+                    <p><button id="btnDecrypt" class="btn btn-primary">&lt;解码</button></p>
+                </td>
+                <td style="width:43%">
+                    <textarea spellcheck="false" id="txtDest" class="form-control" rows="18" cols="30"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<script>
+    $(function () {
+        $("#btnEncrypt").click(function () {
+            var mode = 0;
+            $.post("/Text/OnHtmlCode", { data:encodeURIComponent($("#txtSource").val()), mode: mode }, function (json) {
+                $("#txtDest").val(json);
+            });
+        });
+        $("#btnDecrypt").click(function () {
+
+            var mode = 1;
+
+            $.post("/Text/OnHtmlCode", { data: $("#txtDest").val(), mode: mode }, function (json) {
+                $("#txtSource").val(json);
+            });
+        });
+    })
+
+</script>
+

@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Json格式化";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content_hd">
+    <h2 id="firstHeading" class="">格式化校验</h2>
+</div>
+<!-- bodyContent -->
+<div id="bodyContent" class="bodyContent">
+    <!-- bodytext -->
+    <div>
+        <textarea spellcheck="false" id="json_text" class="form-control" rows="18">{"name":"王小二","age":15,"address":{"province":"浙江","city":"杭州","district":"西湖区"},"hobby":["足球","棒球","乒乓球"]}
+        </textarea>
+    </div>
+    <p class="center-block download-buttons" style="padding:10px;">
+        <a href="javascript:;" onclick="onFormat()" class="btn btn-primary btn-lg">
+            格式化
+        </a>&nbsp;&nbsp;&nbsp;
+        <a href="javascript:;" onclick="OnJsonMin()" class="btn btn-default btn-lg">
+            压缩
+        </a>
+    </p>
+     <p><span style="color:red" id="err_msg"></span></p>
+
+
+</div>
+
+<script>
+
+    function onFormat() {
+        $("#err_msg").text("");
+        $.post("/JsonOpt/OnFormat", { data: $("#json_text").val() }, function (json) {
+            if (json.code == 0) {
+                $("#json_text").val(json.data);
+            } else {
+                $("#err_msg").text(json.msg);
+            }
+        });
+    }
+    function OnJsonMin() {
+        $("#err_msg").text("");
+        $.post("/JsonOpt/OnJsonMin", { data: $("#json_text").val() }, function (json) {
+            $("#json_text").val(json);
+        });
+    }
+
+
+</script>

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "PublicKey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content_hd">
+    <h2 id="firstHeading" class="">获取PublicKeyToken</h2>
+</div>
+<!-- bodyContent -->
+<div id="bodyContent" class="bodyContent">
+    <!-- bodytext -->
+    <form id="uploadForm">
+        <div style=" margin:15px 0px;">
+            <p class="center-block download-buttons">
+                上传： <input type="file" name="file" /></ p>
+                <input type="button" value="上传并获取Key" onclick="doUpload()" />
+        </div>
+        <div>
+            <textarea spellcheck="false" id="json_text" class="form-control" rows="2">
+               
+            </textarea>
+        </div>
+</form>  
+    <p><span style="color:red" id="err_msg"></span></p>
+
+</div>
+
+<script>
+
+    function doUpload() {
+        $("#json_text").val("");
+        $("#err_msg").text("");
+        var formData = new FormData($("#uploadForm")[0]);
+        $.ajax({
+            url: '/api/File/PostFormData',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if (returndata.code == 0) {
+                    $.post("/AssemblyFile/OnPublicKey", { data: returndata.data }, function (json) {
+                        if (json.code == 0) {
+                            $("#json_text").val("结果为:" + json.data);
+                        } else {
+                            $("#err_msg").text(json.msg);
+                        }
+                    });
+                } else {
+                    $("#err_msg").text(returndata.msg);
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        });
+    }
+
+
+</script>

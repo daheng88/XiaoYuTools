@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "MD5加密";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content_hd">
+    <h2 id="firstHeading" class="">MD5加密</h2>
+</div>
+<!-- bodyContent -->
+<div id="bodyContent" class="bodyContent">
+    <!-- bodytext -->
+    <table style="width:100%">
+        <tbody>
+            <tr>
+                <td style="width:43%">
+                    <textarea spellcheck="false" id="txtSourceMd5" class="form-control " rows="18" cols="30">123456789</textarea>
+                </td>
+                <td align="center">
+                    <p>
+                        <input id="rad16" type="radio" name="radHalf"><label class="lblNormal" for="rad16">16位</label>
+                    </p>
+                    <p>
+                        <input id="rad32" type="radio" name="radHalf" checked="checked"><label class="lblNormal" for="rad32">32位</label>
+                    </p>
+                    <p>
+                        <input id="rad64" type="radio" name="radHalf" checked="checked"><label class="lblNormal" for="rad64">64位</label>
+                    </p>
+                    <p><button id="btnMd5" class="btn btn-primary">MD5 &gt;</button></p>
+                </td>
+                <td style="width:43%">
+                    <textarea spellcheck="false" id="txtDestMd5" class="form-control" rows="18" cols="30"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+    $(function () {
+        $("#rad16").prop("checked", true);
+        $("#btnMd5").click(function () {
+            var mode = $("#rad16").prop("checked") ? 16 : ($("#rad32").prop("checked") ? 32 : 64);
+
+            $.post("/Text/OnMd5", { data: $("#txtSourceMd5").val(), mode: mode }, function (json) {
+                $("#txtDestMd5").val(json);
+            });
+        });
+    })
+
+</script>
+
+
+

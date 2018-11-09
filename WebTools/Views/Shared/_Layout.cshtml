@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>吾有知乎，程序员知识库工具网</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="ResourceLoaderDynamicStyles" content="">
+    <!--[if lt IE 7]><style type="text/css">body{behavior:url("/wiki/skins/vector/csshover.min.htc")}</style><![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <!--网站头部-->
+        <script type="text/javascript" src="/css/jquery.js"></script>
+        <script type="text/javascript" src="~/css/main.js"></script>
+        <script>
+
+            $(function () {
+                $(".portal").each(function () {
+                    var portal = $(this), as = portal.find('a');
+                    portal.removeClass("active").find(".body").hide()
+                    as.each(function () {
+                        var href = $(this).attr("href");
+                        if (decodeURIComponent(href) == decodeURIComponent(location.pathname)) {
+                            portal.addClass("active").find(".body").show();
+                            $(this).addClass("selected");
+                        }
+                    }
+                    );
+                })
+            });
+        </script>
+        <div class="headWrap">
+            <div class="header" id="header">
+                <div class="inner">
+                    <a class="logo" href="#"><img src="~/css/logo.png" alt="首页"></a>
+                </div>
+            </div>
+        </div>
+        <div class="mainwrapper">
+            <div class="inner">
+                <!-- panel -->
+                <div id="mw-panel" class="noprint">
+                    <div class="portal" style="margin-top: -1px;">
+                        <h5><span></span>功能菜单</h5>
+                    </div>
+                    <div class="portal active" style="margin-top: -1px;">
+                        <h5><span class="portal_arrow"></span>JSON相关</h5>
+                        <div class="body" style="display: block;">
+                            <ul>
+                                <li><a href="/JsonOpt/Format">格式化校验</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="portal" style="margin-top: -1px;">
+                        <h5><span class="portal_arrow"></span>编码/加密</h5>
+                        <div class="body">
+                            <ul>
+                                <li><a href="/Text/Base64">Base64编码、解码</a></li>
+                                <li><a href="/Text/Md5">MD5加密</a></li>
+                                <li><a href="/Text/UrlCode">URL编码</a></li>
+                                <li><a href="/Text/HtmlCode">HTML编码</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="portal" style="margin-top: -1px;">
+                        <h5><span class="portal_arrow"></span>程序集</h5>
+                        <div class="body">
+                            <ul>
+                                <li><a href="/AssemblyFile/PublicKey">PublicKeyToken</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="portal" style="margin-top: -1px;">
+                        <h5><span class="portal_arrow"></span>常用参考</h5>
+                        <div class="body">
+                            <ul>
+                                <li><a href="/Reference/ContentType">Content-Type</a></li>
+                                <li><a href="/Reference/Html">HTML转义</a></li>
+                                <li><a href="/Reference/HttpStateCode">Http状态码</a></li>
+                                <li><a href="/Reference/Ascii">ASCII码</a></li>
+                                <li><a href="/Reference/Regex">正则表达式</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /panel -->
+                <!-- content -->
+                <div id="content">
+                    @RenderBody()
+                </div>
+                <!-- /content -->
+
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="foot" id="footer">
+            <ul class="links ft" id="footer-places">
+                <li class="links_item no_extra" id="footer-about"><a target="_blank" href="#">关于我们</a></li>
+                <li class="links_item" id="footer-policy"> <a target="_blank" href="#">服务协议</a></li>
+                <li class="links_item" id="footer-contactus"><a target="_blank" href="#">客服中心</a></li>
+            </ul>
+
+            <ul id="footer-icons" class="noprint">
+                <li id="footer-poweredbyico">
+                    <a href="#"></a>
+                </li>
+            </ul>
+            <p class="copyright">Copyright&nbsp;© 2012-2017  5uzh.com. All Rights Reserved.</p>
+        </div>
+        <!-- /footer -->
+    </div>
+</body>
+</html>

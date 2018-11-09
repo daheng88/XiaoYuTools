@@ -1,0 +1,9 @@
+（1）生成用户验证token
+    用户登录后我会生成一个token，该token可能由如下信息组成：username+ip+expiration+salt【只是举例】,然后将组成信息用可逆加密函数加密得到token，并将该token保存到数据库，写入cookie；
+   思路就是用Token保护用户名保存在cookie中（密码不用保存），Token保存在服务端数据库中，cookie设置HttpOnly=true防止xss，
+（2）最后这样去校验信息，判断用户的登录状态
+    将token解密，验证用户username,如果存在，继续；然后验证token是否和存入数据库的token相同，如果相同继续；验证cookie的有效期expiration，如果有效继续；验证ip是否变化，若变化跳入登录。。。。。。甚至还可以验证user agent.
+ (3)可以做到单终端登录，可以将token放到数据库，每次登录操作必然会改变token的值，另外一端的用户就会token验证失败下线
+最后说明：
+1.上面保证了token每次登录都会不一样，这回导致之前的token【既cookie】失效
+2.cookie的有效期最好不超过一周
